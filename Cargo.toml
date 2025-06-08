@@ -1,0 +1,44 @@
+[package]
+name = "rift"
+description = "Rift is a CLI implementation of Scoop in Rust"
+repository = "https://github.com/chawyehsu/rift"
+version = "0.1.0-beta.7"
+authors = ["Chawye Hsu <su+cratesio@chawyehsu.com>"]
+license = "Apache-2.0"
+edition = "2021"
+readme = "README.md"
+
+[workspace]
+members = ["crates/libscoop", "crates/scoop_hash"]
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+anyhow = "1.0"
+clap = { version = "4.5", features = ["wrap_help", "cargo", "derive"] }
+clap-verbosity-flag = { version = "3.0.1", features = ["tracing"], default-features = false }
+clap_complete = "4.5.38"
+crossterm = "0.28"
+indicatif = "0.17.9"
+regex = "1.5.3"
+remove_dir_all = "0.7.0"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+
+[dependencies.libscoop]
+version = "0.1.0-beta.7"
+features = ["rustcrypto-hash"]
+path = "./crates/libscoop"
+
+[profile.release]
+debug = false
+lto = "fat"
+panic = "abort"
+opt-level = 3
+strip = "symbols"
+codegen-units = 1
+
+[profile.release-debug]
+inherits = "release"
+debug = true
+strip = false
