@@ -19,8 +19,8 @@ When a user executes a `rift` command, the application parses the command and it
 ```mermaid
 graph TD
     A[User executes rift command] --> B{src/bin/rift.rs};
-    B --> C[src/lib.rs::create_app()];
-    C --> D[src/cmd/mod.rs::start()];
+B --> C[src/lib.rs.create_app()];
+C --> D[src/cmd/mod.rs.start()];
     D -- Parses CLI arguments --> E[clap crate];
     D -- Initializes --> F[libscoop::Session];
     D -- Dispatches command to --> G{Command Handlers (e.g., cmd/install.rs)};
